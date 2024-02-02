@@ -1,11 +1,13 @@
 'use client';
-import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { AuthService } from '@/services/auth.service';
+import { RegisterFormType } from '@/types/auth/registerFormType';
 
 export default function Register() {
   const router = useRouter();
+  const authService = new AuthService();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -16,7 +18,7 @@ export default function Register() {
 
   const submitClick = async () => {
     try {
-      const formData = {
+      const formData: RegisterFormType = {
         firstName,
         lastName,
         phoneNumber,
@@ -24,15 +26,18 @@ export default function Register() {
         password,
         userRole
       };
-      const response = await axios.post('http://192.168.1.9:8080/api/account/register', formData);
-
-      if (response.status === 200) {
-        router.push('/login');
-      } else {
-        console.error('Registration failed:', response.data);
-      }
+      await authService
+        .register(formData)
+        .then((result: boolean) => {
+          if (result) {
+            router.push('/login');
+          }
+        })
+        .catch(() => {
+          // TODO throw a toast and stay in register Page
+        });
     } catch (error) {
-      console.error('Error during registration:', error);
+      console.error('Register failed:', error);
     }
   };
 

@@ -1,30 +1,36 @@
 'use client';
-import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { AuthService } from '@/services/auth.service';
+import { LoginUserType } from '@/types/auth/loginUserType';
+import { LoginFormType } from '@/types/auth/loginFormType';
 
 export default function Login() {
   const router = useRouter();
+  const authService = new AuthService();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const submitClick = async () => {
     try {
-      const formData = {
+      const formData: LoginFormType = {
         email,
         password
       };
-      const response = await axios.post('http://192.168.1.9:8080/api/account/login', formData);
-
-      if (response.status === 200) {
-        router.push('/');
-      } else {
-        console.error('Registration failed:', response.data);
-      }
+      await authService
+        .login(formData)
+        .then((user: LoginUserType) => {
+          if (user.accessToken) {
+            router.push('/');
+          }
+        })
+        .catch(() => {
+          // TODO throw a toast and stay in login Page
+        });
     } catch (error) {
-      console.error('Error during registration:', error);
+      console.error('Login failed:', error);
     }
   };
 
