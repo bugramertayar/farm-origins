@@ -1,8 +1,37 @@
+'use client';
+import axios from 'axios';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
 export default function Login() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const submitClick = async () => {
+    try {
+      const formData = {
+        email,
+        password
+      };
+      const response = await axios.post('http://192.168.1.9:8080/api/account/login', formData);
+
+      if (response.status === 200) {
+        router.push('/');
+      } else {
+        console.error('Registration failed:', response.data);
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
+  };
+
   return (
     <>
-      <div className="h-full w-1/2 bg-gray-200 p-8 pb-10">
-        <div className="h-full flex flex-col justify-center">
+      <div className="min-h-full flex items-center justify-center w-1/2 bg-gray-200 p-8 pb-10">
+        <div className="h-full w-full flex flex-col justify-center">
           <h1 className="pb-5 text-2xl font-bold">Login</h1>
 
           <label htmlFor="input-group-1" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -18,6 +47,8 @@ export default function Login() {
             <input
               type="text"
               id="input-group-1"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="name@flowbite.com"
             />
@@ -30,12 +61,20 @@ export default function Login() {
             id="password"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="•••••••••"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
             required
           />
 
-          <button type="button" className="w-full px-5 py-2.5 mt-5 text-white text-sm bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg focus:outline-none">
-            Login
-          </button>
+          <div className="grid grid-cols-2 gap-4">
+            <Link className="text-center focus:outline-none col-span-1 text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5" href="/register">
+              Register
+            </Link>
+
+            <button type="button" onClick={submitClick} className="w-full px-5 py-2.5 mt-5 text-white text-sm bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg focus:outline-none">
+              Login
+            </button>
+          </div>
         </div>
       </div>
     </>
