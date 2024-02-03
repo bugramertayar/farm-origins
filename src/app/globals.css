@@ -21,4 +21,5 @@ body {
   letter-spacing: normal;
   height: 100%;
   -webkit-font-smoothing: antialiased;
+  background-color: #f5f5f5;
 }
