@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-[#008000] fixed w-full z-20 top-0 start-0 shadow-2xl">
+      <nav className="bg-[#008000] fixed w-full z-20 top-0 start-0 shadow-2xl max-h-20">
         <div className="flex flex-wrap items-center justify-between mx-auto py-5 px-10">
           <Link href="/dashboard" className="flex items-center space-x-3 rtl:space-x-reverse">
             <span className="self-center text-2xl font-bold whitespace-nowrap text-white">Farm Origins</span>
@@ -46,7 +46,9 @@ export default function Navbar() {
                         <div className="block px-4 py-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Orders</div>
                       </li>
                       <li>
-                        <div className="block px-4 py-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</div>
+                        <Link href="/store" className="block px-4 py-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          My Store
+                        </Link>
                       </li>
                       <li>
                         <div className="block px-4 py-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={logoutClicked}>
