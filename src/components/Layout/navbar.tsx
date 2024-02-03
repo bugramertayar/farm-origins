@@ -2,11 +2,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
-  const router = useRouter();
-
   const { logout } = useAuth();
 
   const logoutClicked = async () => {
