@@ -8,15 +8,10 @@ export class AuthService {
     try {
       const response = await axios.post('http://192.168.1.9:8080/api/account/login', formData);
       const user = response.data;
-      localStorage.setItem('token', user.accessToken);
       return user;
     } catch (error) {
       throw error;
     }
-  }
-
-  async logout() {
-    localStorage.removeItem('token');
   }
 
   async register(formData: RegisterFormType): Promise<boolean> {

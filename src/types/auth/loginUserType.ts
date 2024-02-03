@@ -1,7 +1,7 @@
 export type LoginUserType = {
   username: string;
   email: string;
-  expiredAt: number;
+  expiredAt: Date;
   accessToken: string;
-  identifier: string;
+  userId: string;
 };

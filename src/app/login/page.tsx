@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { AuthService } from '@/services/auth.service';
 import { LoginUserType } from '@/types/auth/loginUserType';
@@ -8,7 +7,6 @@ import { LoginFormType } from '@/types/auth/loginFormType';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function Login() {
-  const router = useRouter();
   const authService = new AuthService();
   const { login } = useAuth();
 
@@ -26,7 +24,6 @@ export default function Login() {
         .then((user: LoginUserType) => {
           if (user) {
             login(user);
-            router.push('/');
           }
         })
         .catch(() => {
