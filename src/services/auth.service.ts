@@ -1,4 +1,3 @@
-import { setCurrentUser } from '@/hooks/auth/setCurrentUser';
 import { LoginFormType } from '@/types/auth/loginFormType';
 import { LoginUserType } from '@/types/auth/loginUserType';
 import { RegisterFormType } from '@/types/auth/registerFormType';
@@ -9,9 +8,7 @@ export class AuthService {
     try {
       const response = await axios.post('http://192.168.1.9:8080/api/account/login', formData);
       const user = response.data;
-      if (user) {
-        setCurrentUser(user);
-      }
+      localStorage.setItem('token', user.accessToken);
       return user;
     } catch (error) {
       throw error;
@@ -19,7 +16,7 @@ export class AuthService {
   }
 
   async logout() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
   }
 
   async register(formData: RegisterFormType): Promise<boolean> {

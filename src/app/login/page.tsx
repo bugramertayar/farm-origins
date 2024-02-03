@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { AuthService } from '@/services/auth.service';
 import { LoginUserType } from '@/types/auth/loginUserType';
 import { LoginFormType } from '@/types/auth/loginFormType';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Login() {
   const router = useRouter();
   const authService = new AuthService();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +24,8 @@ export default function Login() {
       await authService
         .login(formData)
         .then((user: LoginUserType) => {
-          if (user.accessToken) {
+          if (user) {
+            login(user);
             router.push('/');
           }
         })
