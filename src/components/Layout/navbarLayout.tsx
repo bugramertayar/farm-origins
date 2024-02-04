@@ -1,9 +1,9 @@
 'use client';
 
 import React, { PropsWithChildren } from 'react';
-import Navbar from './navbar';
 import { publicRoutes } from '@/contexts/publicRoutes';
 import { usePathname } from 'next/navigation';
+import { Navbar } from '.';
 
 export default function NavbarLayout({ children }: PropsWithChildren) {
   const pathname = usePathname();

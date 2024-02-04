@@ -1,5 +1,5 @@
 'use client';
-import VerticalStepper from '@/components/common/verticalStepper';
+import { VerticalStepper } from '@/components/common';
 import React, { useState } from 'react';
 
 export default function AddNewStore() {
