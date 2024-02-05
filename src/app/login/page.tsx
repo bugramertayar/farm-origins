@@ -43,9 +43,9 @@ export default function Login() {
           <h1 className="pb-5 text-2xl font-bold">Login</h1>
 
           <div className="grid gap-6 my-6">
-            <TextInput label="Email address" type="email" id="email" placeholder="john.doe@company.com" value={email} onChange={setEmail} />
+            <TextInput label="Email address" id="email" placeholder="john.doe@company.com" value={email} onChange={setEmail} />
 
-            <TextInput label="Password" type="password" id="password" placeholder="•••••••••" value={password} onChange={setPassword} />
+            <TextInput label="Password" id="password" placeholder="•••••••••" value={password} onChange={setPassword} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { AuthService } from '@/services/auth.service';
 import { RegisterFormType } from '@/types/auth/registerFormType';
-import { TextInput } from '@/components/inputs';
+import { RadioGroupInput, TextInput } from '@/components/inputs';
 
 export default function Register() {
   const router = useRouter();
@@ -16,6 +16,11 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userRole, setUserRole] = useState(0);
+
+  const radioButtonOptions = [
+    { label: 'Buyer', value: 0 },
+    { label: 'Seller', value: 1 }
+  ];
 
   const submitClick = async () => {
     try {
@@ -47,40 +52,20 @@ export default function Register() {
       <div className="min-h-full flex items-center justify-center w-1/2 bg-gray-200 p-8 pb-10">
         <div className="h-full w-full flex flex-col justify-center">
           <h1 className="pb-5 text-2xl font-bold">Register</h1>
-
-          <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
-            <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-              <div className="flex items-center ps-3">
-                <input id="horizontal-list-radio-license" type="radio" value={userRole} checked={userRole === 0} onChange={(event) => setUserRole(0)} name="list-radio" className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 cursor-pointer" />
-                <label htmlFor="horizontal-list-radio-license" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
-                  Buyer
-                </label>
-              </div>
-            </li>
-
-            <li className="w-full">
-              <div className="flex items-center ps-3">
-                <input id="horizontal-list-radio-passport" type="radio" value={userRole} checked={userRole === 1} onChange={(event) => setUserRole(1)} name="list-radio" className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 cursor-pointer" />
-                <label htmlFor="horizontal-list-radio-passport" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
-                  Seller
-                </label>
-              </div>
-            </li>
-          </ul>
-
+          <RadioGroupInput options={radioButtonOptions} value={userRole} onChange={(event) => setUserRole(event.target.value)}></RadioGroupInput>
           <form>
             <div className="grid gap-6 my-6 md:grid-cols-2">
-              <TextInput label="First name" type="text" id="firstName" placeholder="John" value={firstName} onChange={setFirstName} />
+              <TextInput label="First name" id="firstName" placeholder="John" value={firstName} onChange={setFirstName} />
 
-              <TextInput label="Last name" type="text" id="lastName" placeholder="Doe" value={lastName} onChange={setLastName} />
+              <TextInput label="Last name" id="lastName" placeholder="Doe" value={lastName} onChange={setLastName} />
 
-              <TextInput label="Phone number" type="tel" id="phoneNumber" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" value={phoneNumber} onChange={setPhoneNumber} />
+              <TextInput label="Phone number" id="phoneNumber" placeholder="123-45-678" value={phoneNumber} onChange={setPhoneNumber} />
 
-              <TextInput label="Email address" type="email" id="email" placeholder="john.doe@company.com" value={email} onChange={setEmail} />
+              <TextInput label="Email address" id="email" placeholder="john.doe@company.com" value={email} onChange={setEmail} />
 
-              <TextInput label="Password" type="password" id="password" placeholder="•••••••••" value={password} onChange={setPassword} />
+              <TextInput label="Password" id="password" placeholder="•••••••••" value={password} onChange={setPassword} />
 
-              <TextInput label="Confirm Password" type="password" id="confirm_password" placeholder="•••••••••" />
+              <TextInput label="Confirm Password" id="confirm_password" placeholder="•••••••••" />
             </div>
 
             <div className="flex items-start mb-6">
