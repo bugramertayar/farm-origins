@@ -15,25 +15,24 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   const submitClick = async () => {
-    // try {
-    //   const formData: LoginFormType = {
-    //     email,
-    //     password
-    //   };
-    //   await authService
-    //     .login(formData)
-    //     .then((user: LoginUserType) => {
-    //       if (user) {
-    //         login(user);
-    //       }
-    //     })
-    //     .catch(() => {
-    //       // TODO throw a toast and stay in login Page
-    //     });
-    // } catch (error) {
-    //   console.error('Login failed:', error);
-    // }
-    login({ accessToken: 'asd', userId: '', username: '', expiredAt: new Date(), email: '' });
+    try {
+      const formData: LoginFormType = {
+        email,
+        password
+      };
+      await authService
+        .login(formData)
+        .then((user: LoginUserType) => {
+          if (user) {
+            login(user);
+          }
+        })
+        .catch(() => {
+          // TODO throw a toast and stay in login Page
+        });
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
 
   return (
