@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
 
 interface StoreCardProps {
   title: string;
@@ -23,8 +22,8 @@ export default function StoreCard({ title, description, image, onEditClicked, on
       </div>
       {!image ? (
         <div className="absolute top-8 right-8 flex gap-4">
-          {onEditClicked ? <FormOutlined className="cursor-pointer" onClick={onEditClicked} /> : null}
-          {onDeleteClicked ? <DeleteOutlined className="cursor-pointer text-red-500" onClick={onDeleteClicked} /> : null}
+          {onEditClicked ? <Image src="/assets/common/edit.svg" alt="Edit" width={20} height={20} className="cursor-pointer" onClick={onEditClicked} /> : null}
+          {onDeleteClicked ? <Image src="/assets/common/delete.svg" alt="Delete" width={20} height={20} className="cursor-pointer" onClick={onDeleteClicked} /> : null}
         </div>
       ) : null}
     </div>

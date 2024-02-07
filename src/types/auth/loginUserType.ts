@@ -4,4 +4,5 @@ export type LoginUserType = {
   expiredAt: Date;
   accessToken: string;
   userId: string;
+  userRole: number;
 };

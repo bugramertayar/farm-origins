@@ -1,10 +1,12 @@
 'use client';
 import { Sidebar } from '@/components/common';
 import { StoreCard, StoreListHeader } from '@/components/page-components/store';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function Store() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const router = useRouter();
 
   const cardTitle = 'Göçmen Süt Ürünleri AŞ';
   const cardDescription =
@@ -16,12 +18,18 @@ export default function Store() {
     }
   };
 
-  const cardEditClicked = (storeIdentifier: string) => {};
+  const cardEditClicked = (storeIdentifier: string) => {
+    setIsSidebarOpen(true);
+  };
+
   const cardDeleteClicked = (storeIdentifier: string) => {};
+  const goToCreateStorePage = () => {
+    router.push('/store/create');
+  };
 
   return (
     <div className="h-full flex flex-col">
-      <StoreListHeader title="Stores" onButtonClicked={() => setIsSidebarOpen(true)} />
+      <StoreListHeader title="Stores" onButtonClicked={() => goToCreateStorePage()} />
 
       <Sidebar title="Create New Store" content={<span>Buğra</span>} isSidebarOpen={isSidebarOpen} onSidebarClosed={(event) => onSidebarClosed(event)} />
 

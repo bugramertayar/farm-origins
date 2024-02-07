@@ -23,7 +23,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = (userData: LoginUserType) => {
     setUser(userData);
     Cookies.set('token', userData.accessToken);
-    router.push('/dashboard');
+    if (userData.userRole === 1) {
+      router.push('/store');
+    } else {
+      router.push('/dashboard');
+    }
   };
 
   const logout = () => {
