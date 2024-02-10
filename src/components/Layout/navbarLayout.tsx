@@ -11,7 +11,7 @@ export default function NavbarLayout({ children }: PropsWithChildren) {
   return (
     <>
       {!publicRoutes.includes(pathname) ? <Navbar /> : null}
-      <div className={!publicRoutes.includes(pathname) ? `pt-[76px] h-full` : `h-full`}>{children}</div>
+      <div className={!publicRoutes.includes(pathname) ? `pt-[76px] h-full flex flex-col` : `h-full`}>{children}</div>
     </>
   );
 }
