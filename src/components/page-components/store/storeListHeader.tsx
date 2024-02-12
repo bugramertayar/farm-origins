@@ -10,7 +10,7 @@ export default function StoreListHeader({ title, onButtonClicked }: StoreListHea
         <span className="text-xl font-bold text-gray-700">{title}</span>
         {onButtonClicked ? (
           <button onClick={onButtonClicked} type="button" className="px-8 py-3 bg-blue-700 text-white text-sm font-medium rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300">
-            Create New
+            Create New Store
           </button>
         ) : null}
       </div>

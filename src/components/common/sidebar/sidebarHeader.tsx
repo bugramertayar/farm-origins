@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface SidebarHeaderProps {
   title: string;
   onSidebarHeaderCloseClick: () => void;
@@ -8,9 +10,7 @@ export default function SidebarHeader({ title, onSidebarHeaderCloseClick }: Side
     <>
       <div className="flex justify-between items-center">
         <span>{title}</span>
-        <button onClick={() => onSidebarHeaderCloseClick()} type="button" className="px-8 py-3 bg-blue-700 text-white text-sm font-medium rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300">
-          Close
-        </button>
+        <Image src="/assets/common/close.svg" alt="Sidebar Close" width={20} height={20} onClick={() => onSidebarHeaderCloseClick()} className="cursor-pointer" />
       </div>
     </>
   );
