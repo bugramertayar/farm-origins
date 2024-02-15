@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { AuthService } from '@/services/auth.service';
 import { RegisterFormType } from '@/types/auth/registerFormType';
 import { RadioGroupInput, TextInput } from '@/components/inputs';
+import { PlatformButton } from '@/components/common';
 
 export default function Register() {
   const router = useRouter();
@@ -21,6 +22,10 @@ export default function Register() {
     { label: 'Buyer', value: 0 },
     { label: 'Seller', value: 1 }
   ];
+
+  const goToLogin = async () => {
+    router.push('/login');
+  };
 
   const submitClick = async () => {
     try {
@@ -83,13 +88,8 @@ export default function Register() {
           </form>
 
           <div className="grid grid-cols-2 gap-4">
-            <Link className="text-center focus:outline-none col-span-1 text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5" href="/login">
-              Go Back to Login
-            </Link>
-
-            <button type="submit" onClick={submitClick} className="focus:outline-none col-span-1 text-white text-sm bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 mt-5">
-              Register
-            </button>
+            <PlatformButton type="secondary" text="Go Back to Login" onClick={goToLogin} />
+            <PlatformButton text="Register" onClick={submitClick} />
           </div>
         </div>
       </div>

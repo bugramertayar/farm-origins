@@ -6,13 +6,20 @@ import { LoginUserType } from '@/types/auth/loginUserType';
 import { LoginFormType } from '@/types/auth/loginFormType';
 import { useAuth } from '@/contexts/AuthContext';
 import { TextInput } from '@/components/inputs';
+import { PlatformButton } from '@/components/common';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
+  const router = useRouter();
   const authService = new AuthService();
   const { login } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const goToRegister = async () => {
+    router.push('/register');
+  };
 
   const submitClick = async () => {
     try {
@@ -48,13 +55,8 @@ export default function Login() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Link className="text-center focus:outline-none col-span-1 text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5" href="/register">
-              Register
-            </Link>
-
-            <button type="button" onClick={submitClick} className="w-full px-5 py-2.5 mt-5 text-white text-sm bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg focus:outline-none">
-              Login
-            </button>
+            <PlatformButton type="secondary" text="Register" onClick={goToRegister} />
+            <PlatformButton text="Login" onClick={submitClick} />
           </div>
         </div>
       </div>
