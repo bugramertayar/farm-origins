@@ -3,8 +3,12 @@ import { ProductType } from '@/types/store/productType';
 import { useState } from 'react';
 import { StoreCard } from '..';
 import { TextInput, SelectInput, NumberInput } from '@/components/inputs';
+import { ProductService } from '@/services/product.service';
+import { SelectOptionNumberType } from '@/types/common/selectOptionNumberType';
 
 export default function StoreProductForm() {
+  const productService = new ProductService();
+
   const [productList, setProductList] = useState<ProductType[]>([]);
   const [isProductSidebarOpen, setIsProductSidebarOpen] = useState(false);
   const [name, setName] = useState('');
@@ -14,10 +18,26 @@ export default function StoreProductForm() {
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState(0);
   const [unitTypeId, setUnitTypeId] = useState(0);
+  const [unitTypeOptions, setUnitTypeOptions] = useState<SelectOptionNumberType[]>([]);
+  const [categoryOptions, setCategoryOptions] = useState<SelectOptionNumberType[]>([]);
 
   const onProductSidebarClosed = (value: boolean) => {
     if (value) {
       setIsProductSidebarOpen(false);
+    }
+  };
+
+  const openProductSidebar = async () => {
+    try {
+      const [unitTypes, categories] = await Promise.all([productService.getUnitTypes(), productService.getCategories()]);
+
+      if (unitTypes && categories) {
+        setUnitTypeOptions(unitTypes);
+        setCategoryOptions(categories);
+        setIsProductSidebarOpen(true);
+      }
+    } catch (error) {
+      // TODO toast error
     }
   };
 
@@ -27,20 +47,6 @@ export default function StoreProductForm() {
 
   const saveProduct = () => {};
 
-  const categoryOptions = [
-    { value: 0, label: 'Jack' },
-    { value: 1, label: 'Lucy' },
-    { value: 2, label: 'yiminghe' },
-    { value: 3, label: 'Disabled' }
-  ];
-
-  const unitTypeOptions = [
-    { value: 0, label: 'Buğra' },
-    { value: 1, label: 'Lucy' },
-    { value: 2, label: 'yiminghe' },
-    { value: 3, label: 'Disabled' }
-  ];
-
   const productSidebarContent = (
     <>
       <div className="grid gap-6 md:grid-cols-2">
@@ -48,8 +54,8 @@ export default function StoreProductForm() {
         <TextInput label="Description" id="description" placeholder="Description" value={description} onChange={setDescription} />
         <TextInput label="Image" id="image" placeholder="Image" value={image} onChange={setImage} />
         <SelectInput label="Category" id="categoryId" options={categoryOptions} value={categoryId} onChange={setCategoryId} />
-        <NumberInput label="Price" id="price" placeholder="Price" value={price} onChange={setPrice} />
-        <NumberInput label="Amount" id="amount" placeholder="Amount" value={amount} onChange={setAmount} />
+        <NumberInput label="Price" min={0} id="price" placeholder="Price" value={price} onChange={setPrice} />
+        <NumberInput label="Amount" min={0} id="amount" placeholder="Amount" value={amount} onChange={setAmount} />
         <SelectInput label="Unit Type" id="unitTypeId" options={unitTypeOptions} value={unitTypeId} onChange={setUnitTypeId} />
       </div>
     </>
@@ -63,12 +69,26 @@ export default function StoreProductForm() {
   );
 
   return (
-    <div className="flex flex-col gap-3 my-2">
-      <div className="flex justify-end">
+    <div className="flex flex-col gap-3">
+      <div className="flex justify-between items-center border-b border-solid border-gray-400 border-opacity-50 pb-3">
+        <h1>Products ({productList?.length})</h1>
         <div className="w-1/6 order-last">
-          <PlatformButton text="Create New Product" onClick={() => setIsProductSidebarOpen(true)} />
+          <PlatformButton text="Create New Product" onClick={() => openProductSidebar()} />
         </div>
       </div>
+
+      {productList?.length < 1 ? (
+        <div className="flex justify-center items-center mt-10">
+          <div className="flex justify-center items-center bg-gray-300 p-10 border rounded-lg shadow w-1/2">
+            <span>
+              You dont have any products yet.{' '}
+              <span className="text-blue-500 cursor-pointer" onClick={() => openProductSidebar()}>
+                Click here to create product.
+              </span>
+            </span>
+          </div>
+        </div>
+      ) : null}
 
       <Sidebar title="Create New Product" content={productSidebarContent} footer={productSidebarFooter} isSidebarOpen={isProductSidebarOpen} onSidebarClosed={(event) => onProductSidebarClosed(event)} />
 
