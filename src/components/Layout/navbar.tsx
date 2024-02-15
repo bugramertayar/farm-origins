@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-[#008000] fixed w-full z-20 top-0 start-0 shadow-2xl max-h-20">
+      <nav className="bg-[#76453B] fixed w-full z-20 top-0 start-0 shadow-2xl max-h-20">
         <div className="flex flex-wrap items-center justify-between mx-auto py-5 px-10">
           <Link href="/dashboard" className="flex items-center space-x-3 rtl:space-x-reverse">
             <span className="self-center text-2xl font-bold whitespace-nowrap text-white">Farm Origins</span>

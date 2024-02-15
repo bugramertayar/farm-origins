@@ -27,11 +27,11 @@ export default function AddNewStore() {
 
   return (
     <>
-      <div className="p-8 border-b-2 border-solid border-gray-200">
+      <div className="p-6 border-b-2 border-solid border-gray-200">
         <Stepper currentStep={currentStep} options={STORE_CREATE_STEPPER_OPTIONS}></Stepper>
       </div>
 
-      <div className="p-8 flex flex-col justify-between flex-grow">
+      <div className="p-6 flex flex-col justify-between flex-grow">
         {currentStep === 0 ? <StoreGeneralForm /> : null}
 
         {currentStep === 1 ? <StoreAddressForm /> : null}

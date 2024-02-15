@@ -7,4 +7,6 @@ export type ProductType = {
   price: number;
   amount: number;
   unitTypeId: number;
+  unitTypeName?: string;
+  categoryName?: string;
 };
