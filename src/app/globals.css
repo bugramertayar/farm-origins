@@ -27,3 +27,11 @@ body {
 .ant-steps-item-description {
   max-width: 20rem !important;
 }
+
+.ant-drawer-body {
+  padding-bottom: 6rem !important;
+}
+
+.ant-drawer-footer {
+  border: none !important;
+}

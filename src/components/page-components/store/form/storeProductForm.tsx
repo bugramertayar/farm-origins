@@ -1,4 +1,4 @@
-import { Sidebar } from '@/components/common';
+import { PlatformButton, Sidebar, SidebarFooter } from '@/components/common';
 import { ProductType } from '@/types/store/productType';
 import { useState } from 'react';
 import { StoreCard } from '..';
@@ -25,6 +25,8 @@ export default function StoreProductForm() {
 
   const handleDeleteProductClick = (id: string | undefined) => {};
 
+  const saveProduct = () => {};
+
   const categoryOptions = [
     { value: 0, label: 'Jack' },
     { value: 1, label: 'Lucy' },
@@ -41,33 +43,34 @@ export default function StoreProductForm() {
 
   const productSidebarContent = (
     <>
-      <div className="grid gap-6 my-4 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         <TextInput label="Name" id="name" placeholder="Name" value={name} onChange={setName} />
-
         <TextInput label="Description" id="description" placeholder="Description" value={description} onChange={setDescription} />
-
         <TextInput label="Image" id="image" placeholder="Image" value={image} onChange={setImage} />
-
         <SelectInput label="Category" id="categoryId" options={categoryOptions} value={categoryId} onChange={setCategoryId} />
-
         <NumberInput label="Price" id="price" placeholder="Price" value={price} onChange={setPrice} />
-
         <NumberInput label="Amount" id="amount" placeholder="Amount" value={amount} onChange={setAmount} />
-
         <SelectInput label="Unit Type" id="unitTypeId" options={unitTypeOptions} value={unitTypeId} onChange={setUnitTypeId} />
       </div>
     </>
   );
 
+  const productSidebarFooter = (
+    <SidebarFooter>
+      <PlatformButton type="secondary" text="Cancel" onClick={() => setIsProductSidebarOpen(false)} />
+      <PlatformButton text="Save" onClick={saveProduct} />
+    </SidebarFooter>
+  );
+
   return (
     <div className="flex flex-col gap-3 my-2">
       <div className="flex justify-end">
-        <button onClick={() => setIsProductSidebarOpen(true)} className="text-center focus:outline-none text-white text-sm bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5">
-          Create New Product
-        </button>
+        <div className="w-1/6 order-last">
+          <PlatformButton text="Create New Product" onClick={() => setIsProductSidebarOpen(true)} />
+        </div>
       </div>
 
-      <Sidebar title="Create New Product" content={productSidebarContent} isSidebarOpen={isProductSidebarOpen} onSidebarClosed={(event) => onProductSidebarClosed(event)} />
+      <Sidebar title="Create New Product" content={productSidebarContent} footer={productSidebarFooter} isSidebarOpen={isProductSidebarOpen} onSidebarClosed={(event) => onProductSidebarClosed(event)} />
 
       <div>
         {productList.map((product: ProductType) => (

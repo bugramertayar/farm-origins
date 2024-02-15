@@ -1,5 +1,5 @@
 'use client';
-import { Stepper } from '@/components/common';
+import { PlatformButton, Stepper } from '@/components/common';
 import { useState } from 'react';
 import { STORE_CREATE_STEPPER_OPTIONS } from '../common';
 import { useRouter } from 'next/navigation';
@@ -38,13 +38,13 @@ export default function AddNewStore() {
 
         {currentStep === 2 ? <StoreProductForm /> : null}
 
-        <div className="grid grid-cols-6 gap-4">
-          <button onClick={backClicked} className="text-center focus:outline-none col-start-1 text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5">
-            {currentStep === 0 ? 'Cancel' : 'Back'}
-          </button>
-          <button onClick={nextClicked} type="submit" className="text-center focus:outline-none col-start-6 text-white text-sm bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5">
-            {currentStep === STORE_CREATE_STEPPER_OPTIONS.length - 1 ? 'Save' : 'Next'}
-          </button>
+        <div className="flex justify-between">
+          <div className="w-1/6">
+            <PlatformButton type="secondary" text={currentStep === 0 ? 'Cancel' : 'Back'} onClick={backClicked} />
+          </div>
+          <div className="w-1/6">
+            <PlatformButton text={currentStep === STORE_CREATE_STEPPER_OPTIONS.length - 1 ? 'Save' : 'Next'} onClick={nextClicked} />
+          </div>
         </div>
       </div>
     </>

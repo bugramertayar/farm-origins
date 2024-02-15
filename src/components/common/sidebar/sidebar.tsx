@@ -5,13 +5,14 @@ import SidebarHeader from './sidebarHeader';
 interface SidebarProps {
   isSidebarOpen: boolean;
   title: string;
+  footer?: any;
   customWidth?: number;
   content: ReactNode;
   maskClosable?: boolean;
   onSidebarClosed: (isClosed: boolean) => void;
 }
 
-export default function Sidebar({ isSidebarOpen, title, content, customWidth = 700, maskClosable = true, onSidebarClosed }: SidebarProps) {
+export default function Sidebar({ isSidebarOpen, title, footer, content, customWidth = 700, maskClosable = true, onSidebarClosed }: SidebarProps) {
   const onClose = () => {
     onSidebarClosed(true);
   };
@@ -20,7 +21,7 @@ export default function Sidebar({ isSidebarOpen, title, content, customWidth = 7
 
   return (
     <>
-      <Drawer closeIcon={false} title={sidebarHeaderTemplate} width={customWidth} maskClosable={maskClosable} onClose={onClose} open={isSidebarOpen}>
+      <Drawer closeIcon={false} title={sidebarHeaderTemplate} footer={footer} width={customWidth} maskClosable={maskClosable} onClose={onClose} open={isSidebarOpen}>
         {content}
       </Drawer>
     </>
