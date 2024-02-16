@@ -1,22 +1,17 @@
 import { TextInput } from '@/components/inputs';
-import { useState } from 'react';
+interface StoreAddressFormProps {
+  formGroup: any;
+  onFormChange: (id: string, value: string) => void;
+}
 
-export default function StoreAddressForm() {
-  const [addressFormValues, setAddressFormValues] = useState({
-    address: ''
-  });
-
-  const onFormChange = (id: string, value: any) => {
-    setAddressFormValues({ ...addressFormValues, [id]: value });
-  };
-
+export default function StoreAddressForm({ formGroup, onFormChange }: StoreAddressFormProps) {
   return (
     <div className="grid gap-6 my-4">
       <TextInput
         label="Store Address"
         id="address"
         placeholder="Store Address"
-        value={addressFormValues.address}
+        value={formGroup.address}
         onChange={(event) => {
           onFormChange(event.target.id, event.target.value);
         }}

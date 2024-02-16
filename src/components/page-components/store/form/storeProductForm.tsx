@@ -1,11 +1,15 @@
-import { PlatformButton, Sidebar, SidebarFooter } from '@/components/common';
+import { PlatformButton } from '@/components/common';
 import { ProductType } from '@/types/store/productType';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import ProductCard from '../productCard';
 import { ProductFormSidebar } from '../../product';
 
-export default function StoreProductForm() {
-  const [productList, setProductList] = useState<ProductType[]>([]);
+interface StoreProductFormProps {
+  productList: ProductType[];
+  setProductList: Dispatch<SetStateAction<ProductType[]>>;
+}
+
+export default function StoreProductForm({ productList, setProductList }: StoreProductFormProps) {
   const [isProductSidebarOpen, setIsProductSidebarOpen] = useState(false);
 
   const handleEditProductClick = (productName: string | undefined) => {};
