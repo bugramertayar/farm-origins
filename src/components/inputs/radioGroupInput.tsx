@@ -3,7 +3,8 @@ import { Radio, RadioChangeEvent } from 'antd';
 interface RadioGroupInputProps {
   options: RadioGroupOptions[];
   value: number;
-  onChange?: (e: RadioChangeEvent) => void;
+  id: string;
+  onChange?: (e: any) => void;
 }
 
 interface RadioGroupOptions {
@@ -11,7 +12,7 @@ interface RadioGroupOptions {
   value: number;
 }
 
-export default function RadioGroupInput({ options, value, onChange }: RadioGroupInputProps) {
+export default function RadioGroupInput({ options, value, id, onChange }: RadioGroupInputProps) {
   return (
     <>
       <Radio.Group buttonStyle="solid" value={value} onChange={onChange} size="large">

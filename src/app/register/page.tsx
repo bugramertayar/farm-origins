@@ -1,9 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { AuthService } from '@/services/auth.service';
-import { RegisterFormType } from '@/types/auth/registerFormType';
 import { RadioGroupInput, TextInput } from '@/components/inputs';
 import { PlatformButton } from '@/components/common';
 
@@ -11,12 +9,28 @@ export default function Register() {
   const router = useRouter();
   const authService = new AuthService();
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userRole, setUserRole] = useState(0);
+  const [isRegisterFormValid, setIsRegisterFormValid] = useState(false);
+  const [registerFormValues, setRegisterFormValues] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    password: '',
+    userRole: 0
+  });
+
+  useEffect(() => {
+    checkFormValidity();
+  }, [registerFormValues]);
+
+  const checkFormValidity = () => {
+    const isValid = registerFormValues.firstName !== '' && registerFormValues.lastName !== '' && registerFormValues.phoneNumber !== '' && registerFormValues.email !== '' && registerFormValues.password !== '';
+    setIsRegisterFormValid(isValid);
+  };
+
+  const onFormChange = (id: string, value: any) => {
+    setRegisterFormValues({ ...registerFormValues, [id]: value });
+  };
 
   const radioButtonOptions = [
     { label: 'Buyer', value: 0 },
@@ -29,16 +43,8 @@ export default function Register() {
 
   const submitClick = async () => {
     try {
-      const formData: RegisterFormType = {
-        firstName,
-        lastName,
-        phoneNumber,
-        email,
-        password,
-        userRole
-      };
       await authService
-        .register(formData)
+        .register(registerFormValues)
         .then((result: boolean) => {
           if (result) {
             router.push('/login');
@@ -57,18 +63,65 @@ export default function Register() {
       <div className="min-h-full flex items-center justify-center w-1/2 bg-gray-200 p-8 pb-10">
         <div className="h-full w-full flex flex-col justify-center">
           <h1 className="pb-5 text-2xl font-bold">Register</h1>
-          <RadioGroupInput options={radioButtonOptions} value={userRole} onChange={(event) => setUserRole(event.target.value)}></RadioGroupInput>
+          <RadioGroupInput
+            id="userRole"
+            options={radioButtonOptions}
+            value={registerFormValues.userRole}
+            onChange={(event) => {
+              onFormChange(event.target.id, event.target.value);
+            }}
+          />
           <form>
             <div className="grid gap-6 my-6 md:grid-cols-2">
-              <TextInput label="First name" id="firstName" placeholder="John" value={firstName} onChange={setFirstName} />
+              <TextInput
+                label="First name"
+                id="firstName"
+                placeholder="John"
+                value={registerFormValues.firstName}
+                onChange={(event) => {
+                  onFormChange(event.target.id, event.target.value);
+                }}
+              />
 
-              <TextInput label="Last name" id="lastName" placeholder="Doe" value={lastName} onChange={setLastName} />
+              <TextInput
+                label="Last name"
+                id="lastName"
+                placeholder="Doe"
+                value={registerFormValues.lastName}
+                onChange={(event) => {
+                  onFormChange(event.target.id, event.target.value);
+                }}
+              />
 
-              <TextInput label="Phone number" id="phoneNumber" placeholder="123-45-678" value={phoneNumber} onChange={setPhoneNumber} />
+              <TextInput
+                label="Phone number"
+                id="phoneNumber"
+                placeholder="123-45-678"
+                value={registerFormValues.phoneNumber}
+                onChange={(event) => {
+                  onFormChange(event.target.id, event.target.value);
+                }}
+              />
 
-              <TextInput label="Email address" id="email" placeholder="john.doe@company.com" value={email} onChange={setEmail} />
+              <TextInput
+                label="Email address"
+                id="email"
+                placeholder="john.doe@company.com"
+                value={registerFormValues.email}
+                onChange={(event) => {
+                  onFormChange(event.target.id, event.target.value);
+                }}
+              />
 
-              <TextInput label="Password" id="password" placeholder="•••••••••" value={password} onChange={setPassword} />
+              <TextInput
+                label="Password"
+                id="password"
+                placeholder="•••••••••"
+                value={registerFormValues.password}
+                onChange={(event) => {
+                  onFormChange(event.target.id, event.target.value);
+                }}
+              />
 
               <TextInput label="Confirm Password" id="confirm_password" placeholder="•••••••••" />
             </div>
@@ -89,7 +142,7 @@ export default function Register() {
 
           <div className="grid grid-cols-2 gap-4">
             <PlatformButton type="secondary" text="Go Back to Login" onClick={goToLogin} />
-            <PlatformButton text="Register" onClick={submitClick} />
+            <PlatformButton text="Register" disabled={!isRegisterFormValid} onClick={submitClick} />
           </div>
         </div>
       </div>

@@ -2,26 +2,80 @@ import { TextInput } from '@/components/inputs';
 import { useState } from 'react';
 
 export default function StoreGeneralForm() {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [image, setImage] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [vkn, setVkn] = useState('');
+  const [generalFormValues, setGeneralFormValues] = useState({
+    name: '',
+    description: '',
+    image: '',
+    email: '',
+    phoneNumber: '',
+    vkn: ''
+  });
+
+  const onFormChange = (id: string, value: any) => {
+    setGeneralFormValues({ ...generalFormValues, [id]: value });
+  };
 
   return (
     <div className="grid gap-6 my-4 md:grid-cols-2">
-      <TextInput label="Store Name" id="name" placeholder="Store Name" value={name} onChange={setName} />
+      <TextInput
+        label="Store Name"
+        id="name"
+        placeholder="Store Name"
+        value={generalFormValues.name}
+        onChange={(event) => {
+          onFormChange(event.target.id, event.target.value);
+        }}
+      />
 
-      <TextInput label="Store Description" id="description" placeholder="Store Description" value={description} onChange={setDescription} />
+      <TextInput
+        label="Store Description"
+        id="description"
+        placeholder="Store Description"
+        value={generalFormValues.description}
+        onChange={(event) => {
+          onFormChange(event.target.id, event.target.value);
+        }}
+      />
 
-      <TextInput label="Image" id="image" placeholder="Image" value={image} onChange={setImage} />
+      <TextInput
+        label="Image"
+        id="image"
+        placeholder="Image"
+        value={generalFormValues.image}
+        onChange={(event) => {
+          onFormChange(event.target.id, event.target.value);
+        }}
+      />
 
-      <TextInput label="Email address" id="email" placeholder="john.doe@company.com" value={email} onChange={setEmail} />
+      <TextInput
+        label="Email address"
+        id="email"
+        placeholder="john.doe@company.com"
+        value={generalFormValues.email}
+        onChange={(event) => {
+          onFormChange(event.target.id, event.target.value);
+        }}
+      />
 
-      <TextInput label="Phone Number" id="phoneNumber" placeholder="Phone Number" value={phoneNumber} onChange={setPhoneNumber} />
+      <TextInput
+        label="Phone Number"
+        id="phoneNumber"
+        placeholder="Phone Number"
+        value={generalFormValues.phoneNumber}
+        onChange={(event) => {
+          onFormChange(event.target.id, event.target.value);
+        }}
+      />
 
-      <TextInput label="Store Vkn" id="vkn" placeholder="Store Vkn" value={vkn} onChange={setVkn} />
+      <TextInput
+        label="Store Vkn"
+        id="vkn"
+        placeholder="Store Vkn"
+        value={generalFormValues.vkn}
+        onChange={(event) => {
+          onFormChange(event.target.id, event.target.value);
+        }}
+      />
     </div>
   );
 }

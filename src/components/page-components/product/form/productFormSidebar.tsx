@@ -40,9 +40,7 @@ export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClos
             setCategoryOptions(categories);
           }
         }
-      } catch (error) {
-        // Hata yönetimi burada yapılabilir
-      }
+      } catch (error) {}
     }
 
     fetchData();
@@ -65,7 +63,7 @@ export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClos
     });
   };
 
-  const onProductFormChange = (id: string, value: any) => {
+  const onFormChange = (id: string, value: any) => {
     setProductFormValues({ ...productFormValues, [id]: value });
   };
 
@@ -86,7 +84,7 @@ export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClos
         placeholder="Name"
         value={productFormValues.name}
         onChange={(event) => {
-          onProductFormChange(event.target.id, event.target.value);
+          onFormChange(event.target.id, event.target.value);
         }}
       />
       <TextInput
@@ -95,7 +93,7 @@ export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClos
         placeholder="Description"
         value={productFormValues.description}
         onChange={(event) => {
-          onProductFormChange(event.target.id, event.target.value);
+          onFormChange(event.target.id, event.target.value);
         }}
       />
       <TextInput
@@ -104,7 +102,7 @@ export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClos
         placeholder="Image"
         value={productFormValues.image}
         onChange={(event) => {
-          onProductFormChange(event.target.id, event.target.value);
+          onFormChange(event.target.id, event.target.value);
         }}
       />
       <SelectInput
@@ -113,7 +111,7 @@ export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClos
         options={categoryOptions}
         value={productFormValues.categoryId}
         onChange={(event) => {
-          onProductFormChange('categoryId', event);
+          onFormChange('categoryId', event);
         }}
       />
       <NumberInput
@@ -123,7 +121,7 @@ export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClos
         placeholder="Amount"
         value={productFormValues.amount}
         onChange={(event) => {
-          onProductFormChange('amount', event);
+          onFormChange('amount', event);
         }}
       />
       <SelectInput
@@ -132,7 +130,7 @@ export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClos
         options={unitTypeOptions}
         value={productFormValues.unitTypeId}
         onChange={(event) => {
-          onProductFormChange('unitTypeId', event);
+          onFormChange('unitTypeId', event);
         }}
       />
       <NumberInput
@@ -142,7 +140,7 @@ export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClos
         placeholder="Price"
         value={productFormValues.price}
         onChange={(event) => {
-          onProductFormChange('price', event);
+          onFormChange('price', event);
         }}
       />
     </div>
