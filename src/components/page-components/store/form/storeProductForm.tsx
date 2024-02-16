@@ -11,13 +11,45 @@ interface StoreProductFormProps {
 
 export default function StoreProductForm({ productList, setProductList }: StoreProductFormProps) {
   const [isProductSidebarOpen, setIsProductSidebarOpen] = useState(false);
+  const [productToEdit, setProductToEdit] = useState<ProductType | null>(null);
 
-  const handleEditProductClick = (productName: string | undefined) => {};
+  const handleEditProductClick = (product: ProductType) => {
+    setProductToEdit(product);
+    setIsProductSidebarOpen(true);
+  };
 
-  const handleDeleteProductClick = (productName: string | undefined) => {};
+  const handleDeleteProductClick = (productId: string | undefined) => {
+    if (!productId) {
+      return;
+    }
+
+    const existingProductIndex = productList.findIndex((product) => product.id === productId);
+
+    if (existingProductIndex === -1) {
+      return;
+    }
+
+    const updatedProductList = [...productList];
+    updatedProductList.splice(existingProductIndex, 1);
+    setProductList(updatedProductList);
+  };
+
+  const generateUniqueId = (): string => {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  };
 
   const saveProduct = (product: ProductType) => {
-    setProductList((prevProductList) => [...prevProductList, product]);
+    if (product.id && product.id !== '') {
+      const existingProductIndex = productList.findIndex((x) => x.id === product.id);
+      const updatedProductList = [...productList];
+      updatedProductList[existingProductIndex] = product;
+      setProductList(updatedProductList);
+    } else {
+      const newProductId = generateUniqueId();
+      const newProduct = { ...product, id: newProductId };
+      setProductList((prevProductList) => [...prevProductList, newProduct]);
+    }
+
     setIsProductSidebarOpen(false);
   };
 
@@ -43,12 +75,21 @@ export default function StoreProductForm({ productList, setProductList }: StoreP
         </div>
       ) : null}
 
-      <ProductFormSidebar title="Create New Product" isSidebarOpen={isProductSidebarOpen} onSidebarClosed={(event) => setIsProductSidebarOpen(false)} onSidebarSaved={(product) => saveProduct(product)} />
+      <ProductFormSidebar
+        title="Create New Product"
+        product={productToEdit}
+        isSidebarOpen={isProductSidebarOpen}
+        onSidebarClosed={(event) => {
+          setIsProductSidebarOpen(false);
+          setProductToEdit(null);
+        }}
+        onSidebarSaved={(product) => saveProduct(product)}
+      />
 
       <div>
         {productList.map((product: ProductType) => (
-          <div key={product.name} className="mb-5">
-            <ProductCard product={product} onEditClicked={() => handleEditProductClick(product.name)} onDeleteClicked={() => handleDeleteProductClick(product.name)} />
+          <div key={product.id} className="mb-5">
+            <ProductCard product={product} onEditClicked={() => handleEditProductClick(product)} onDeleteClicked={() => handleDeleteProductClick(product.id)} />
           </div>
         ))}
       </div>

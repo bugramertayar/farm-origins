@@ -8,11 +8,12 @@ import { useState, useEffect } from 'react';
 interface ProductFormProps {
   title: string;
   isSidebarOpen: boolean;
+  product?: ProductType | null;
   onSidebarClosed: (e: any) => void;
   onSidebarSaved: (product: ProductType) => void;
 }
 
-export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClosed, onSidebarSaved }: ProductFormProps) {
+export default function ProductFormSidebar({ title, isSidebarOpen, product, onSidebarClosed, onSidebarSaved }: ProductFormProps) {
   const productService = new ProductService();
 
   const [isProductFormValid, setIsProductFormValid] = useState(false);
@@ -45,6 +46,9 @@ export default function ProductFormSidebar({ title, isSidebarOpen, onSidebarClos
 
     fetchData();
     resetFormValues();
+    if (product) {
+      setProductFormValues(product);
+    }
   }, [isSidebarOpen]);
 
   useEffect(() => {
