@@ -1,5 +1,5 @@
 import { PlatformButton } from '@/components/common';
-import { ProductType } from '@/types/store/productType';
+import { ProductType } from '@/types/product/productType';
 import { Dispatch, SetStateAction, useState } from 'react';
 import ProductCard from '../productCard';
 import { ProductFormSidebar } from '../../product';

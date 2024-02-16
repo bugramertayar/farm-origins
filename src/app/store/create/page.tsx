@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { STORE_CREATE_STEPPER_OPTIONS } from '../common';
 import { useRouter } from 'next/navigation';
 import { StoreAddressForm, StoreGeneralForm, StoreProductForm } from '@/components/page-components/store';
-import { ProductType } from '@/types/store/productType';
+import { ProductType } from '@/types/product/productType';
 
 export default function AddNewStore() {
   const router = useRouter();

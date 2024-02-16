@@ -2,7 +2,7 @@ import { PlatformButton, Sidebar, SidebarFooter } from '@/components/common';
 import { TextInput, SelectInput, NumberInput } from '@/components/inputs';
 import { ProductService } from '@/services/product.service';
 import { SelectOptionNumberType } from '@/types/common/selectOptionNumberType';
-import { ProductType } from '@/types/store/productType';
+import { ProductType } from '@/types/product/productType';
 import { useState, useEffect } from 'react';
 
 interface ProductFormProps {

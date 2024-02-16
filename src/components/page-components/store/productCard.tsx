@@ -1,4 +1,4 @@
-import { ProductType } from '@/types/store/productType';
+import { ProductType } from '@/types/product/productType';
 import Image from 'next/image';
 
 interface ProductCardProps {
