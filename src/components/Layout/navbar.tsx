@@ -37,7 +37,7 @@ export default function Navbar() {
                   </div>
 
                   <div className={`z-10 ${isDropdownVisible ? '' : 'hidden'} absolute right-0`}>
-                    <div className="w-full h-3 bg-[#008000]"></div>
+                    <div className="w-full h-3 bg-[#76453B]"></div>
                     <ul className="cursor-pointer text-sm text-gray-700 dark:text-gray-200 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 " aria-labelledby="dropdownHoverButton">
                       <li>
                         <div className="block px-4 py-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg">My Profile</div>
