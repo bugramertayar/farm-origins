@@ -7,7 +7,7 @@ interface NumberInputProps {
   value: number | null;
   min?: number;
   max?: number;
-  onChange?: (value: any) => void;
+  onChange?: (e: any) => void;
 }
 
 export default function NumberInput({ id, label, placeholder, value, min, max, onChange }: NumberInputProps) {
@@ -16,7 +16,7 @@ export default function NumberInput({ id, label, placeholder, value, min, max, o
       <label htmlFor={id} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
         {label}
       </label>
-      <InputNumber style={{ width: '100%' }} size="large" placeholder={placeholder} min={min} max={max} value={value} onChange={onChange} />
+      <InputNumber id={id} style={{ width: '100%' }} size="large" placeholder={placeholder} min={min} max={max} value={value} onChange={onChange} />
     </div>
   );
 }
