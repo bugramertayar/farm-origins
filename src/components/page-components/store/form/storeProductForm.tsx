@@ -86,7 +86,7 @@ export default function StoreProductForm({ productList, setProductList }: StoreP
         onSidebarSaved={(product) => saveProduct(product)}
       />
 
-      <div>
+      <div className="grid grid-cols-3 gap-x-8">
         {productList.map((product: ProductType) => (
           <div key={product.id} className="mb-5">
             <ProductCard product={product} onEditClicked={() => handleEditProductClick(product)} onDeleteClicked={() => handleDeleteProductClick(product.id)} />

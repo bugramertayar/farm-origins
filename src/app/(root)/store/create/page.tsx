@@ -3,7 +3,7 @@ import { PlatformButton, Stepper } from '@/components/common';
 import { useEffect, useState } from 'react';
 import { STORE_CREATE_STEPPER_OPTIONS } from '../common';
 import { useRouter } from 'next/navigation';
-import { StoreAddressForm, StoreGeneralForm, StoreProductForm } from '@/components/page-components/store';
+import { StoreAddressForm, StoreConfirmationForm, StoreGeneralForm, StoreProductForm } from '@/components/page-components/store';
 import { ProductType } from '@/types/product/productType';
 
 export default function AddNewStore() {
@@ -87,14 +87,18 @@ export default function AddNewStore() {
         <Stepper currentStep={currentStep} options={STORE_CREATE_STEPPER_OPTIONS}></Stepper>
       </div>
 
-      <div className="p-6 flex flex-col justify-between flex-grow">
-        {currentStep === 0 ? <StoreGeneralForm formGroup={generalFormValues} onFormChange={(id, value) => onFormChange(id, value, 1)} /> : null}
+      <div className="p-6 relative h-full">
+        <div className="">
+          {currentStep === 0 ? <StoreGeneralForm formGroup={generalFormValues} onFormChange={(id, value) => onFormChange(id, value, 1)} /> : null}
 
-        {currentStep === 1 ? <StoreAddressForm formGroup={addressFormValues} onFormChange={(id, value) => onFormChange(id, value, 2)} /> : null}
+          {currentStep === 1 ? <StoreAddressForm formGroup={addressFormValues} onFormChange={(id, value) => onFormChange(id, value, 2)} /> : null}
 
-        {currentStep === 2 ? <StoreProductForm productList={productList} setProductList={setProductList} /> : null}
+          {currentStep === 2 ? <StoreProductForm productList={productList} setProductList={setProductList} /> : null}
 
-        <div className="flex justify-between">
+          {currentStep === 3 ? <StoreConfirmationForm store={{ ...{ productList: productList }, ...addressFormValues, ...generalFormValues }} /> : null}
+        </div>
+
+        <div className="flex justify-between fixed bottom-0 left-0 w-full p-8">
           <div className="w-1/6">
             <PlatformButton type="secondary" text={currentStep === 0 ? 'Cancel' : 'Back'} onClick={backClicked} />
           </div>
