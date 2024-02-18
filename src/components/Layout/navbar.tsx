@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-[#76453B] fixed w-full z-20 top-0 start-0 shadow-2xl max-h-20">
+      <nav className="bg-[#3F2305] fixed w-full z-20 top-0 start-0 shadow-2xl max-h-20">
         <div className="flex flex-wrap items-center justify-between mx-auto py-5 px-10">
           <Link href="/dashboard" className="flex items-center space-x-3 rtl:space-x-reverse">
             <span className="self-center text-2xl font-bold whitespace-nowrap text-white">Farm Origins</span>
@@ -37,7 +37,7 @@ export default function Navbar() {
                   </div>
 
                   <div className={`z-10 ${isDropdownVisible ? '' : 'hidden'} absolute right-0`}>
-                    <div className="w-full h-3 bg-[#76453B]"></div>
+                    <div className="w-full h-3 bg-[#3F2305]"></div>
                     <ul className="cursor-pointer text-sm text-gray-700 dark:text-gray-200 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 " aria-labelledby="dropdownHoverButton">
                       <li>
                         <div className="block px-4 py-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg">My Profile</div>

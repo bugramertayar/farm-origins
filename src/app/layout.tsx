@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { NavbarLayout } from '@/components/layout';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -21,9 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AntdRegistry>
-          <AuthProvider>
-            <NavbarLayout>{children}</NavbarLayout>
-          </AuthProvider>
+          <AuthProvider>{children}</AuthProvider>
         </AntdRegistry>
       </body>
     </html>
